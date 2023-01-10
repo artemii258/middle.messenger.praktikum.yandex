@@ -1,0 +1,57 @@
+mixin profiles(trigger)
+        .profile__content
+            .profile__content-elem
+                .profile__title Почта
+                .profile__value pochta@yandex.ru
+            .profile__content-elem
+                .profile__title Логин
+                .profile__value ivanivanov
+            .profile__content-elem
+                .profile__title Имя
+                .profile__value Иван
+            .profile__content-elem
+                .profile__title Фамилия
+                .profile__value Иванов
+            .profile__content-elem
+                .profile__title Имя в чате
+                .profile__value Иван
+            .profile__content-elem
+                .profile__title Телефон
+                .profile__value +7 (909) 967 30 30
+        form.profile__content
+            .profile__content-form
+                .profile__content-elem
+                    .profile__title Почта
+                    +input('email', 'email', 'pochta@yandex.ru')
+                .profile__content-elem
+                    .profile__title Логин
+                    +input('login', 'text', 'ivanivanov')
+                .profile__content-elem
+                    .profile__title Имя
+                    +input('first_name', 'text', 'Иван')
+                .profile__content-elem
+                    .profile__title Фамилия
+                    +input('second_name', 'text', 'Иванов')
+                .profile__content-elem
+                    .profile__title Имя в чате
+                    +input('display_name', 'text', 'Иван')
+                .profile__content-elem
+                    .profile__title Телефон
+                    +input('phone', 'phone', '+7 (909) 967 30 30')
+            +button('Сохранить', 'profile')
+        form.profile__content
+            .profile__content-form
+                .profile__content-elem
+                    .profile__title Старый пароль
+                    +input('oldPassword', 'password')
+                .profile__content-elem
+                    .profile__title Новый пароль
+                    +input('newPassword', 'password')
+                .profile__content-elem
+                    .profile__title Повторите новый пароль
+                    +input('newPassword', 'password')
+            +button('Сохранить', 'profile')
+
+
+                
+
