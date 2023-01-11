@@ -1,4 +1,4 @@
-export default function tabs() {
+export default function () {
 	const entrance = document.querySelector('.entrance'),
 		chats = document.querySelector('.chats'),
 		chatsPlug = document.querySelector('.chats__block-right'),
