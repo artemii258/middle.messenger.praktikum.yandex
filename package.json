@@ -3,7 +3,6 @@
 	"version": "1.0.0",
 	"description": "---",
 	"browserslist": "> 0.5%, last 2 versions, not dead",
-	"type": "module",
 	"scripts": {
 		"start": "node ./server.mjs",
 		"dev": "parcel src/index.pug -p 3000 --open",
