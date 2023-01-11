@@ -4,7 +4,7 @@
 	"description": "---",
 	"browserslist": "> 0.5%, last 2 versions, not dead",
 	"scripts": {
-		"start": "node ./server.mjs",
+		"start": "node ./server.js",
 		"dev": "parcel src/index.pug -p 3000 --open",
 		"clean": "node ./node_modules/parcel-dist-cleaner/distCleaner",
 		"build": "npm run clean && parcel build src/index.pug --no-source-maps --no-cache"
