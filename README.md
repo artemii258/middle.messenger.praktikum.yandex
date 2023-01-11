@@ -6,11 +6,11 @@ https://www.figma.com/file/lOkAumLkr8sGmjHgMjUhni/Chat-(Copy)?node-id=0%3A1&t=FK
 
 ## Ссылка на netlify
 
-delicate-platypus-cf23fa.netlify.app
+https://delicate-platypus-cf23fa.netlify.app/
 
 ## Запуска проекта
 
-+ npm run start		запуск проекта из папки dist с помощью express
-+	npm run	dev     запуск проекта в режиме разработки
-+	npm run clean	  очистка папки dist
-+ npm run build		сборка проекта в режиме продакшена
++ `npm run start`		запуск проекта из папки dist с помощью express
++	`npm run	dev`     запуск проекта в режиме разработки
++	`npm run clean`  очистка папки dist
++ `npm run build`		сборка проекта в режиме продакшена
