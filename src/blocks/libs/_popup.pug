@@ -1,0 +1,19 @@
+mixin popup(title, button, id, type, name)
+    if (type === 'text')
+        section(class='popup' id=`${id}`)
+            .popup__wrapper
+                .popup__title= title
+                form.popup__form
+                    .popup__input
+                        +input(name, type)
+                    +button(button, 'popup')
+    if (type === 'file')
+        section(class='popup' id=`${id}`)
+            .popup__wrapper
+                .popup__title= title
+                form.popup__form
+                    .popup__input
+                        +input(name, type, '', 'avatar')
+                        label(for='avatar') Выбрать файл на компьютере
+                    +button(button, 'popup')
+                    

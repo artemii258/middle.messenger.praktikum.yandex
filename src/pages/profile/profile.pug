@@ -1,0 +1,19 @@
+mixin profile(trigger)
+    section.profile
+        .profile__wrapper
+            ul.profile__menu
+                li.profile__item
+                    +links('Чат', 'profile', '#', true)
+                li.profile__item
+                    +links('Изменить данные', 'profile', '#', true)
+                li.profile__item
+                    +links('Изменить пароль', 'profile', '#', true)
+                li.profile__item
+                    +links('Выйти', 'profile', '#', true)
+            .profile__header
+                form.profile__avatar
+                    img
+                    .profile__hover Поменять аватар
+                h3.profile__name Артемий 
+            +profiles()   
+            
