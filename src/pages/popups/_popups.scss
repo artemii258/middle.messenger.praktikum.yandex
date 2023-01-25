@@ -4,15 +4,15 @@
 	top: 50%;
 	transform: translate(-50%, -50%);
 	display: none;
-	background: #ffffff;
-	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+	background: #fff;
+	box-shadow: 0 0 6px rgb(0 0 0 / 14%);
 	border-radius: 12px;
 	width: 340px;
 	height: 257px;
 	z-index: 1000;
+
 	&__backgraund {
 		display: none;
-		position: fixed;
 		background: var(--main-color);
 		opacity: 0.4;
 		height: 100vh;
@@ -22,18 +22,22 @@
 		top: 0;
 		z-index: 10;
 	}
+
 	&__wrapper {
 		padding: 40px 30px;
 	}
+
 	&__title {
 		color: var(--title-color);
 		text-align: center;
 	}
+
 	&__input {
 		width: 100%;
 		height: 33px;
 		margin-top: 50px;
 		position: relative;
+
 		input {
 			width: 100%;
 			height: 100%;
@@ -41,8 +45,9 @@
 			border-bottom: 1px solid var(--main-color);
 			outline: none;
 		}
+
 		&::before {
-			content: 'Логин';
+			content: "Логин";
 			position: absolute;
 			font-size: 9px;
 			color: var(--gray-color);
@@ -50,6 +55,7 @@
 			bottom: 28px;
 		}
 	}
+
 	&__button {
 		margin-top: 33px;
 	}
@@ -60,13 +66,16 @@
 		border: none;
 		display: flex;
 		justify-content: center;
+
 		&::before {
 			content: none;
 		}
+
 		input {
 			border: none;
 			display: none;
 		}
+
 		label {
 			color: var(--name-color);
 			text-decoration: underline solid;
