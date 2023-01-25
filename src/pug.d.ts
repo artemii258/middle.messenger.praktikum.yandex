@@ -1,7 +1,5 @@
-declare module '*.hbs' {
-	import { TemplateDelegate } from 'handlebars';
-
-	declare const template: TemplateDelegate;
+declare module '*.pug' {
+	declare const template: (context: any) => string;
 
 	export default template;
 }

@@ -1,5 +1,6 @@
 import { EventBus } from './event-bus';
 import { nanoid } from 'nanoid';
+import Pug from 'pug';
 
 // Нельзя создавать экземпляр данного класса
 class Block<P extends Record<string, any> = any> {
@@ -125,8 +126,7 @@ class Block<P extends Record<string, any> = any> {
 
 	protected compile(template: (context: any) => string, context: any) {
 		const contextAndStubs = { ...context };
-
-		console.log(typeof template);
+		console.log('block', typeof template);
 		Object.entries(this.children).forEach(([name, component]) => {
 			contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
 		});

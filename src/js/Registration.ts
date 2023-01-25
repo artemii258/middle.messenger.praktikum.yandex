@@ -1,6 +1,6 @@
 import Block from '../block';
 import { Button } from '../Button';
-import template from './registration.hbs';
+import template from './registration.pug';
 export class Registration extends Block {
 	constructor() {
 		super({});

@@ -1,5 +1,5 @@
 import Block from './block';
-import template from './blocks/libs/_button.hbs';
+import template from './blocks/libs/_button.pug';
 
 interface ButtonProps {
 	type?: string;
