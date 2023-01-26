@@ -1,8 +1,0 @@
-
-mixin links(text, cls, href = '#', li)
-    if (!li)
-        div(class=`${cls}__links`)
-            a(href= `${href}` class= `${cls}__link`)= text
-    if (li)
-        a(href= `${href}` class= `${cls}__link`)= text
-    

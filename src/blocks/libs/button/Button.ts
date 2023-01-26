@@ -1,16 +1,16 @@
-import Block from './block';
-import template from './blocks/libs/_button.pug';
+import Block from '../../../utils/block';
+import template from './_button.pug';
 
 interface ButtonProps {
-	type?: string;
 	label: string;
+	classes: string;
 	events: {
 		click: () => void;
 	};
+	type?: string;
 }
 export class Button extends Block<ButtonProps> {
 	constructor(props: ButtonProps) {
-		console.log(template);
 		super({ type: 'button', ...props });
 	}
 

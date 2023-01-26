@@ -23,10 +23,11 @@
 	&__form {
 		position: relative;
 		width: 100%;
-		height: calc(100% - 44px);
+		height: calc(100% - 24px);
 	}
 
 	&__inputs {
+		padding: 20px 0;
 		&-input {
 			position: relative;
 			height: 33px;
@@ -72,7 +73,7 @@
 				content: 'Пароль';
 			}
 
-			&:last-child::before {
+			&:nth-child(7)::before {
 				content: 'Пароль (ещё раз)';
 			}
 		}
