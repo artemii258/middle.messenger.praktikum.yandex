@@ -1,3 +1,7 @@
-div(class=`${classes}__inputs-input`) 
-    input(name=`${name}`, type=`${type}`, placeholder=`${placeholder = ''}`, id=`${id = ''}`)
+div(class=`${classes}__inputs-input`)
+    if (id !== 'avatar')
+        input(name=`${name}`, type=`${type}`, placeholder=`${placeholder || ''}` id=`${id || ''}`)
+    if (id === 'avatar')
+        input(name=`${name}`, type=`${type}`, placeholder=`${placeholder = ''}` id=`${id}`)
+        label(for=`${id}`) Выбрать файл на компьютере
     

@@ -1,4 +1,5 @@
-import Block from '../../../utils/block';
+import Validation from '../../../services/Validation';
+import Block from '../../../utils/Block';
 import template from './_input.pug';
 
 interface IInputProps {
@@ -7,10 +8,21 @@ interface IInputProps {
 	placeholder?: string;
 	id?: string;
 	type?: string;
+	text?: string;
+	events?: {
+		focus: (e: FocusEvent) => void;
+		blur: (e: FocusEvent) => void;
+	};
 }
 export class Input extends Block<IInputProps> {
 	constructor(props: IInputProps) {
-		super({ ...props });
+		super({
+			events: {
+				focus: new Validation().onFocus,
+				blur: new Validation().onBlur
+			},
+			...props
+		});
 	}
 
 	render() {

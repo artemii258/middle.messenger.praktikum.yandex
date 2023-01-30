@@ -2,69 +2,40 @@ import Block from '../../utils/Block';
 import { Button } from '../../blocks/libs/button/Button';
 import { Input } from '../../blocks/libs/input/Input';
 import { Links } from '../../blocks/libs/links/Links';
+import template from './entrance.pug';
 import HTTPTransport from '../../services/Requests';
-import template from './registration.pug';
 
-interface IRegistration {
-	classes: string;
-}
-
-export default class Registration extends Block {
-	constructor(props: IRegistration) {
-		super({ ...props });
+export default class Entrance extends Block {
+	constructor() {
+		super({});
 	}
 	init() {
-		this.children.email = new Input({
-			name: 'email',
-			classes: 'registration',
-			type: 'email'
-		});
 		this.children.login = new Input({
 			name: 'login',
-			classes: 'registration',
+			classes: 'entrance',
 			type: 'text'
-		});
-		this.children.first_name = new Input({
-			name: 'first_name',
-			classes: 'registration',
-			type: 'first_name'
-		});
-		this.children.second_name = new Input({
-			name: 'second_name',
-			classes: 'registration',
-			type: 'text'
-		});
-		this.children.phone = new Input({
-			name: 'phone',
-			classes: 'registration',
-			type: 'tel'
 		});
 		this.children.password = new Input({
 			name: 'password',
-			classes: 'registration',
-			type: 'password'
-		});
-		this.children.passwordReplay = new Input({
-			name: 'passwordRepeat',
-			classes: 'registration',
+			classes: 'entrance',
 			type: 'password'
 		});
 		this.children.button = new Button({
-			label: 'Зарегистрироваться',
-			classes: 'registration',
+			label: 'Авторизоваться',
+			classes: 'entrance',
 			type: 'submit',
 			events: {
 				click: this.onSubmit
 			}
 		});
 		this.children.link = new Links({
-			text: 'Войти',
-			classes: 'registration',
+			text: 'Нет аккаунта?',
+			classes: 'entrance',
 			href: '#'
 		});
 	}
 	onSubmit() {
-		const form: HTMLFormElement | null = document.querySelector('.registration__form');
+		const form: HTMLFormElement | null = document.querySelector('.entrance__form');
 		const inputs = form?.querySelectorAll('input');
 		const submit = (e: Event) => {
 			e.preventDefault();
@@ -79,11 +50,7 @@ export default class Registration extends Block {
 			if (form) {
 				const formData: FormData = new FormData(form);
 				const data = {
-					email: formData.get('email'),
 					login: formData.get('login'),
-					first_name: formData.get('first_name'),
-					second_name: formData.get('second_name'),
-					phone: formData.get('phone'),
 					password: formData.get('password')
 				};
 				console.log(data);
@@ -92,7 +59,6 @@ export default class Registration extends Block {
 		};
 		form?.addEventListener('submit', submit);
 	}
-
 	render() {
 		return this.compile(template, { ...this.props });
 	}

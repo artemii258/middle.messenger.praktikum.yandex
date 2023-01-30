@@ -24,7 +24,7 @@ export default function () {
 			error500
 		],
 		wrapper = document.querySelector('.pageDisplay__wrapper');
-	wrapper.addEventListener('click', (e) => {
+	wrapper?.addEventListener('click', (e) => {
 		if (e.target !== wrapper) {
 			for (let i = 0; i < pages.length; i++) {
 				if (pages[i].length) {

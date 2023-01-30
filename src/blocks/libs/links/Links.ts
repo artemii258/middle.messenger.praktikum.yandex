@@ -1,4 +1,4 @@
-import Block from '../../../utils/block';
+import Block from '../../../utils/Block';
 import template from './_links.pug';
 
 interface ILinksProps {

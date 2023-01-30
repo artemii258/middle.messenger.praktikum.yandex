@@ -3,6 +3,7 @@
 	padding: 60px 0 109px;
 	width: 510px;
 	margin: 0 auto;
+	position: relative;
 
 	&__wrapper {
 		height: 551px;
@@ -10,7 +11,6 @@
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: center;
-		position: relative;
 	}
 
 	&__menu {
@@ -18,7 +18,7 @@
 		border-width: 1px 0 0 1px;
 		border-radius: 10px 0 0;
 		position: absolute;
-		top: 0;
+		top: 60px;
 		left: 0;
 		margin: 0;
 		padding: 0 15px;
@@ -47,6 +47,21 @@
 		position: relative;
 		cursor: pointer;
 
+		.profile__hover {
+			visibility: hidden;
+			width: 100%;
+			height: 100%;
+			border-radius: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			text-align: center;
+			cursor: pointer;
+		}
+
 		img {
 			width: 100%;
 			height: 100%;
@@ -58,30 +73,22 @@
 		}
 	}
 
-	&__hover {
-		visibility: hidden;
-		width: 100%;
-		height: 100%;
-		border-radius: 100%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		color: #fff;
-		display: flex;
-		align-items: center;
-		text-align: center;
-	}
-
 	&__name {
 		color: var(--main-color);
 		font-weight: 600;
 		font-size: 16px;
 		text-align: center;
-		margin: 21px 0 0;
 	}
 
 	&__content {
 		width: 100%;
+		position: absolute;
+		bottom: 109px;
+		left: 0;
+
+		&-form {
+			width: 100%;
+		}
 
 		&-elem {
 			display: flex;
@@ -129,4 +136,8 @@
 	&__button {
 		margin: 60px auto 0;
 	}
+}
+
+#avatar {
+	display: none;
 }

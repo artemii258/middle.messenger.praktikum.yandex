@@ -403,11 +403,11 @@
 		}
 
 		&-send {
-			width: 28px;
+			width: 100px;
 			height: 28px;
+			border-radius: 10px;
 			border: 1px solid var(--main-color);
 			background-color: var(--main-color);
-			border-radius: 100%;
 			display: flex;
 			justify-content: center;
 			align-items: center;

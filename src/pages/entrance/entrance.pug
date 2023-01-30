@@ -1,7 +1,12 @@
-
-mixin entprance()
-    section.entrance
-        h1.entrance__title Добро пожаловать в наше современное приложение!
-        .entrance__wrapper
-            +window('entrance')
+section.entrance
+    h1.entrance__title Добро пожаловать в наше современное приложение!
+    .entrance__wrapper
+        h2(class=`entrance__title-sub`) Вход
+        form(class=`entrance__form`)
+                                    div(class=`entrance__inputs`)
+                                        #{login}
+                                            #{password}
+                                                div(class=`entrance__buttons`)
+                                                    #{button}
+                                                        #{link}
         

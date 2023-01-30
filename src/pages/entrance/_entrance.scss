@@ -35,6 +35,8 @@
 	}
 
 	&__inputs {
+		padding: 20px 0;
+
 		&-input {
 			position: relative;
 			height: 33px;
@@ -60,7 +62,7 @@
 				bottom: 28px;
 			}
 
-			&:last-child::before {
+			&:nth-child(2)::before {
 				content: "Пароль";
 			}
 		}

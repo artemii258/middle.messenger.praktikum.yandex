@@ -1,9 +1,8 @@
-import { EventBus } from './event-bus';
+import EventBus from './Event-bus';
 import { nanoid } from 'nanoid';
-import Pug from 'pug';
 
 // Нельзя создавать экземпляр данного класса
-class Block<P extends Record<string, any> = any> {
+export default class Block<P extends Record<string, any> = any> {
 	static EVENTS = {
 		INIT: 'init',
 		FLOW_CDM: 'flow:component-did-mount',
@@ -57,7 +56,11 @@ class Block<P extends Record<string, any> = any> {
 		const { events = {} } = this.props as P & { events: Record<string, () => void> };
 
 		Object.keys(events).forEach((eventName) => {
-			this._element?.addEventListener(eventName, events[eventName]);
+			if (this._element?.querySelector('input')) {
+				this._element?.querySelector('input')?.addEventListener(eventName, events[eventName]);
+			} else {
+				this._element?.addEventListener(eventName, events[eventName]);
+			}
 		});
 	}
 
@@ -180,5 +183,3 @@ class Block<P extends Record<string, any> = any> {
 		});
 	}
 }
-
-export default Block;

@@ -1,5 +1,5 @@
 .registration {
-	display: block;
+	display: none;
 	height: 720px;
 	padding: 52px 0;
 
@@ -28,6 +28,7 @@
 
 	&__inputs {
 		padding: 20px 0;
+
 		&-input {
 			position: relative;
 			height: 33px;
@@ -45,7 +46,7 @@
 			}
 
 			&::before {
-				content: 'Почта';
+				content: "Почта";
 				position: absolute;
 				font-size: 9px;
 				color: var(--gray-color);
@@ -54,27 +55,27 @@
 			}
 
 			&:nth-child(2)::before {
-				content: 'Логин';
+				content: "Логин";
 			}
 
 			&:nth-child(3)::before {
-				content: 'Имя';
+				content: "Имя";
 			}
 
 			&:nth-child(4)::before {
-				content: 'Фамилия';
+				content: "Фамилия";
 			}
 
 			&:nth-child(5)::before {
-				content: 'Телефон';
+				content: "Телефон";
 			}
 
 			&:nth-child(6)::before {
-				content: 'Пароль';
+				content: "Пароль";
 			}
 
 			&:nth-child(7)::before {
-				content: 'Пароль (ещё раз)';
+				content: "Пароль (ещё раз)";
 			}
 		}
 	}
