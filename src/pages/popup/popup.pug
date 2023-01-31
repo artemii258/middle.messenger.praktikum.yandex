@@ -1,0 +1,15 @@
+if (typeInput === 'text')
+    section(class='popup' id=`popup__${id}`)
+        .popup__wrapper
+            .popup__title= title
+            form.popup__form
+                    #{input}
+                            #{button}
+if (typeInput === 'file')
+    section(class='popup' id=`popup__${id}`)
+        .popup__wrapper
+            .popup__title= title
+            form.popup__form
+                #{input}
+                    #{button}
+                    

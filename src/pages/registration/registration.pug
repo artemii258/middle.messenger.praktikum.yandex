@@ -1,4 +1,16 @@
-mixin registration()
-    section.registration
-        .registration__wrapper
-            +window('registration')
+section.registration
+    .registration__wrapper
+        h2(class=`${classes}__title`) Регистрация
+        form(class=`${classes}__form`)
+            div(class=`${classes}__inputs`)
+                #{email}
+                    #{login}
+                        #{first_name}
+                            #{second_name}
+                                #{phone}
+                                    #{password}
+                                        #{passwordReplay}
+                                            div(class=`${classes}__buttons`)
+                                                #{button}
+                                                    #{link}
+                                                    

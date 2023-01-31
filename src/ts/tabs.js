@@ -9,24 +9,22 @@ export default function () {
 		popups = document.querySelectorAll('.popup'),
 		background = document.querySelector('.popup__backgraund'),
 		error404 = document.querySelector('.error404'),
-		error500 = document.querySelector('.error500');
-
-	const pages = [
-		entrance,
-		chats,
-		chatsPlug,
-		chatsMessage,
-		profile,
-		profileContent,
-		registration,
-		popups,
-		background,
-		error404,
-		error500,
-	];
-
-	const wrapper = document.querySelector('.pageDisplay__wrapper');
-	wrapper.addEventListener('click', (e) => {
+		error500 = document.querySelector('.error500'),
+		pages = [
+			entrance,
+			chats,
+			chatsPlug,
+			chatsMessage,
+			profile,
+			profileContent,
+			registration,
+			popups,
+			background,
+			error404,
+			error500
+		],
+		wrapper = document.querySelector('.pageDisplay__wrapper');
+	wrapper?.addEventListener('click', (e) => {
 		if (e.target !== wrapper) {
 			for (let i = 0; i < pages.length; i++) {
 				if (pages[i].length) {
