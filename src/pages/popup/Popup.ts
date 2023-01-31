@@ -8,6 +8,9 @@ interface IPopup {
 	name: string;
 	label: string;
 	id: string;
+	events: {
+		submit: (e: Event) => void;
+	};
 	placeholder?: string;
 	typeInput?: string;
 	typeButton?: string;
@@ -27,45 +30,39 @@ export default class Popup extends Block {
 		this.children.button = new Button({
 			label: this.props.label,
 			classes: 'popup',
-			events: {
-				click: () => this.onSubmit(this.props.id)
-			},
 			type: this.props.typeButton
 		});
 	}
-	onSubmit(id: string) {
-		const form: HTMLFormElement | null = document.querySelector(`#popup__${id} form`);
-		const inputs = form?.querySelectorAll('input');
-		const submit = (e: Event) => {
-			e.preventDefault();
-			if (inputs) {
-				for (let i = 0; i < inputs.length; i++) {
-					if (inputs[i].classList.contains('validation') || inputs[i].value === '') {
-						form?.removeEventListener('submit', submit);
-						return;
-					}
-				}
-			}
-			if (form) {
-				const formData: FormData = new FormData(form);
-				let data;
-				if (formData.get('login')) {
-					data = {
-						login: formData.get('login')
-					};
-				} else if (formData.get('file')) {
-					console.log(formData.get('file'));
-					data = {
-						file: formData.get('file')
-					};
-				}
-				console.log(data);
-				form?.removeEventListener('submit', submit);
-			}
-		};
-		form?.addEventListener('submit', submit);
-	}
+
 	render() {
 		return this.compile(template, { ...this.props });
 	}
 }
+
+export const onSubmitPopup = (e: Event, id: string) => {
+	const form: HTMLFormElement | null = document.querySelector(`#popup__${id} form`);
+	const inputs = form?.querySelectorAll('input');
+	e.preventDefault();
+	if (inputs) {
+		for (let i = 0; i < inputs.length; i++) {
+			if (inputs[i].classList.contains('validation') || inputs[i].value === '') {
+				return;
+			}
+		}
+	}
+	if (form) {
+		const formData: FormData = new FormData(form);
+		let data;
+		if (formData.get('login')) {
+			data = {
+				login: formData.get('login')
+			};
+		} else if (formData.get('file')) {
+			console.log(formData.get('file'));
+			data = {
+				file: formData.get('file')
+			};
+		}
+		console.log(data);
+	}
+};

@@ -2,11 +2,13 @@ import Block from '../../utils/Block';
 import { Button } from '../../blocks/libs/button/Button';
 import { Input } from '../../blocks/libs/input/Input';
 import { Links } from '../../blocks/libs/links/Links';
-import HTTPTransport from '../../services/Requests';
 import template from './registration.pug';
 
 interface IRegistration {
-	classes: string;
+	classes?: string;
+	events: {
+		submit: (e: Event) => void;
+	};
 }
 
 export default class Registration extends Block {
@@ -52,10 +54,7 @@ export default class Registration extends Block {
 		this.children.button = new Button({
 			label: 'Зарегистрироваться',
 			classes: 'registration',
-			type: 'submit',
-			events: {
-				click: this.onSubmit
-			}
+			type: 'submit'
 		});
 		this.children.link = new Links({
 			text: 'Войти',
@@ -63,37 +62,34 @@ export default class Registration extends Block {
 			href: '#'
 		});
 	}
-	onSubmit() {
-		const form: HTMLFormElement | null = document.querySelector('.registration__form');
-		const inputs = form?.querySelectorAll('input');
-		const submit = (e: Event) => {
-			e.preventDefault();
-			if (inputs) {
-				for (let i = 0; i < inputs.length; i++) {
-					if (inputs[i].classList.contains('validation') || inputs[i].value === '') {
-						form?.removeEventListener('submit', submit);
-						return;
-					}
-				}
-			}
-			if (form) {
-				const formData: FormData = new FormData(form);
-				const data = {
-					email: formData.get('email'),
-					login: formData.get('login'),
-					first_name: formData.get('first_name'),
-					second_name: formData.get('second_name'),
-					phone: formData.get('phone'),
-					password: formData.get('password')
-				};
-				console.log(data);
-				form?.removeEventListener('submit', submit);
-			}
-		};
-		form?.addEventListener('submit', submit);
-	}
 
 	render() {
 		return this.compile(template, { ...this.props });
 	}
 }
+
+export const onSubmitRegistration = (e: Event) => {
+	e.preventDefault();
+
+	const form: HTMLFormElement | null = document.querySelector('.registration__form');
+	const inputs = form?.querySelectorAll('input');
+	if (inputs) {
+		for (let i = 0; i < inputs.length; i++) {
+			if (inputs[i].classList.contains('validation') || inputs[i].value === '') {
+				return;
+			}
+		}
+	}
+	if (form) {
+		const formData: FormData = new FormData(form);
+		const data = {
+			email: formData.get('email'),
+			login: formData.get('login'),
+			first_name: formData.get('first_name'),
+			second_name: formData.get('second_name'),
+			phone: formData.get('phone'),
+			password: formData.get('password')
+		};
+		console.log(data);
+	}
+};

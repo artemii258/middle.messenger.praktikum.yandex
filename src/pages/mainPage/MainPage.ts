@@ -9,6 +9,8 @@ import Error500 from '../error500/Error500';
 import pageDisplay from '../pageDisplay/PageDisplay';
 import { images } from '../chats/Chats';
 import error from '../../assets/images/error.jpg';
+import { onSubmitRegistration } from '../../pages/registration/Registration';
+import { onSubmitPopup } from '../popup/Popup';
 import template from './mainPage.pug';
 
 export default class MainPage extends Block {
@@ -17,7 +19,10 @@ export default class MainPage extends Block {
 	}
 	init() {
 		this.children.registration = new Registration({
-			classes: 'registration'
+			classes: 'registration',
+			events: {
+				submit: onSubmitRegistration
+			}
 		});
 		this.children.chats = new Chats({
 			classes: 'chats',
@@ -28,6 +33,9 @@ export default class MainPage extends Block {
 			name: 'login',
 			label: 'Добавить',
 			id: 'add',
+			events: {
+				submit: (e: Event) => onSubmitPopup(e, 'add')
+			},
 			typeButton: 'submit',
 			typeInput: 'text'
 		});
@@ -36,6 +44,9 @@ export default class MainPage extends Block {
 			name: 'login',
 			label: 'Удалить',
 			id: 'delete',
+			events: {
+				submit: (e: Event) => onSubmitPopup(e, 'delete')
+			},
 			typeButton: 'submit',
 			typeInput: 'text'
 		});
@@ -44,6 +55,9 @@ export default class MainPage extends Block {
 			name: 'avatar',
 			label: 'Поменять',
 			id: 'avatar',
+			events: {
+				submit: (e: Event) => onSubmitPopup(e, 'avatar')
+			},
 			typeButton: 'submit',
 			typeInput: 'file'
 		});

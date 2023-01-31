@@ -54,12 +54,26 @@ export default class Block<P extends Record<string, any> = any> {
 
 	_addEvents() {
 		const { events = {} } = this.props as P & { events: Record<string, () => void> };
-
 		Object.keys(events).forEach((eventName) => {
-			if (this._element?.querySelector('input')) {
+			if (this._element?.querySelector('form')) {
+				this._element?.querySelector('form')?.addEventListener(eventName, events[eventName]);
+			} else if (this._element?.querySelector('input')) {
 				this._element?.querySelector('input')?.addEventListener(eventName, events[eventName]);
 			} else {
 				this._element?.addEventListener(eventName, events[eventName]);
+			}
+		});
+	}
+	_removeEvents() {
+		const { events = {} } = this.props as P & { events: Record<string, () => void> };
+
+		Object.keys(events).forEach((eventName) => {
+			if (this._element?.querySelector('form')) {
+				this._element?.querySelector('form')?.removeEventListener(eventName, events[eventName]);
+			} else if (this._element?.querySelector('input')) {
+				this._element?.querySelector('input')?.removeEventListener(eventName, events[eventName]);
+			} else {
+				this._element?.removeEventListener(eventName, events[eventName]);
 			}
 		});
 	}
@@ -98,7 +112,7 @@ export default class Block<P extends Record<string, any> = any> {
 	}
 
 	protected componentDidUpdate(oldProps: P, newProps: P) {
-		return true;
+		return oldProps !== newProps;
 	}
 
 	setProps = (nextProps: P) => {
@@ -123,6 +137,7 @@ export default class Block<P extends Record<string, any> = any> {
 		}
 
 		this._element = newElement;
+		this._removeEvents();
 
 		this._addEvents();
 	}
