@@ -5,7 +5,6 @@ export default class Validation {
 	onBlur = (e: FocusEvent) => {
 		this.checkInput(e);
 	};
-	checkData = (data: Object) => {};
 	checkInput = (e: FocusEvent) => {
 		const input = e.target as HTMLInputElement;
 		switch (input.name) {
@@ -52,7 +51,14 @@ export default class Validation {
 	email = (input: HTMLInputElement) => {
 		if (/^[\w]+@[\w]+\.[A-Za-z]{2,}$/i.test(input.value)) {
 			input.classList.remove('validation');
+			if (input.nextSibling) {
+				input.nextSibling.textContent = '';
+			}
 		} else {
+			if (input.nextSibling) {
+				input.nextSibling.textContent =
+					'латиница, может включать цифры и спецсимволы вроде дефиса, обязательно должна быть «собака» (@) и точка после неё, но перед точкой обязательно должны быть буквы';
+			}
 			input.classList.add('validation');
 		}
 	};
@@ -63,7 +69,14 @@ export default class Validation {
 			!input.value.match(/[`~!@#$%^&*()|+\=?;:'",.<>\{\}\[\]\\\/]/gi)?.length
 		) {
 			input.classList.remove('validation');
+			if (input.nextSibling) {
+				input.nextSibling.textContent = '';
+			}
 		} else {
+			if (input.nextSibling) {
+				input.nextSibling.textContent =
+					'от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)';
+			}
 			input.classList.add('validation');
 		}
 	};
@@ -72,29 +85,56 @@ export default class Validation {
 			(/^[A-Z][A-Za-z]+$/.test(input.value) || /^[А-Я][А-Яа-яЁё]+$/.test(input.value)) &&
 			!input.value.match(/[`~!@#$%^&*()|+\=_?;:'",.<>\{\}\[\]\\\/]/gi)?.length
 		) {
+			if (input.nextSibling) {
+				input.nextSibling.textContent = '';
+			}
 			input.classList.remove('validation');
 		} else {
+			if (input.nextSibling) {
+				input.nextSibling.textContent =
+					'латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)';
+			}
 			input.classList.add('validation');
 		}
 	};
 	password = (input: HTMLInputElement) => {
 		if (/\w{8,40}/.test(input.value) && input.value.match(/[A-Z]/g) && input.value.match(/\d/g)) {
+			if (input.nextSibling) {
+				input.nextSibling.textContent = '';
+			}
 			input.classList.remove('validation');
 		} else {
+			if (input.nextSibling) {
+				input.nextSibling.textContent =
+					'от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра';
+			}
 			input.classList.add('validation');
 		}
 	};
 	phone = (input: HTMLInputElement) => {
 		if (/^\+?\d{10,15}$/.test(input.value)) {
+			if (input.nextSibling) {
+				input.nextSibling.textContent = '';
+			}
 			input.classList.remove('validation');
 		} else {
+			if (input.nextSibling) {
+				input.nextSibling.textContent =
+					'от 10 до 15 символов, состоит из цифр, может начинается с плюса';
+			}
 			input.classList.add('validation');
 		}
 	};
 	message = (input: HTMLInputElement) => {
 		if (input.value.length !== 0) {
+			if (input.nextSibling) {
+				input.nextSibling.textContent = '';
+			}
 			input.classList.remove('validationMessage');
 		} else {
+			if (input.nextSibling) {
+				input.nextSibling.textContent = 'не должно быть пустым';
+			}
 			input.classList.add('validationMessage');
 		}
 	};

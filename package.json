@@ -23,6 +23,8 @@
 	"devDependencies": {
 		"@parcel/transformer-sass": "2.8.3",
 		"@types/pug": "2.0.6",
+		"@typescript-eslint/eslint-plugin": "^5.49.0",
+		"@typescript-eslint/parser": "^5.49.0",
 		"assert": "^2.0.0",
 		"buffer": "^5.7.1",
 		"eslint": "8.32.0",

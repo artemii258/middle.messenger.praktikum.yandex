@@ -1,7 +1,7 @@
 import Block from '../../utils/Block';
 import { Links } from '../../blocks/libs/links/Links';
-import { Input } from '../../blocks/libs/input/Input';
 import Content from '../../blocks/libs/profiles/content/Content';
+import { onSubmitProfile } from '../../blocks/libs/profiles/content/Content';
 import template from './profile.pug';
 
 interface IProfile {
@@ -41,10 +41,16 @@ export default class Profile extends Block<IProfile> {
 			trigger: 'profile'
 		});
 		this.children.changesData = new Content({
-			trigger: 'data'
+			trigger: 'data',
+			events: {
+				submit: (e: Event) => onSubmitProfile(e, 'data')
+			}
 		});
 		this.children.changesPassword = new Content({
-			trigger: 'password'
+			trigger: 'password',
+			events: {
+				submit: (e: Event) => onSubmitProfile(e, 'password')
+			}
 		});
 	}
 

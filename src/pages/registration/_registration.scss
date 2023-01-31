@@ -1,11 +1,9 @@
 .registration {
 	display: none;
-	height: 720px;
 	padding: 52px 0;
 
 	&__wrapper {
 		width: 340px;
-		height: 615px;
 		margin: 0 auto;
 		padding: 50px 30px 30px;
 		border: 1px solid var(--main-color);
@@ -23,7 +21,6 @@
 	&__form {
 		position: relative;
 		width: 100%;
-		height: calc(100% - 24px);
 	}
 
 	&__inputs {
@@ -31,7 +28,6 @@
 
 		&-input {
 			position: relative;
-			height: 33px;
 			margin-top: 16px;
 
 			input {
@@ -44,45 +40,46 @@
 				font-size: 14px;
 				outline: none;
 			}
+			label {
+				display: inline-block;
+				color: red;
+				font-size: 10px;
+				width: 100%;
+			}
 
 			&::before {
-				content: "Почта";
+				content: 'Почта';
 				position: absolute;
 				font-size: 9px;
 				color: var(--gray-color);
 				left: 0;
-				bottom: 28px;
+				top: -10px;
 			}
 
 			&:nth-child(2)::before {
-				content: "Логин";
+				content: 'Логин';
 			}
 
 			&:nth-child(3)::before {
-				content: "Имя";
+				content: 'Имя';
 			}
 
 			&:nth-child(4)::before {
-				content: "Фамилия";
+				content: 'Фамилия';
 			}
 
 			&:nth-child(5)::before {
-				content: "Телефон";
+				content: 'Телефон';
 			}
 
 			&:nth-child(6)::before {
-				content: "Пароль";
+				content: 'Пароль';
 			}
 
 			&:nth-child(7)::before {
-				content: "Пароль (ещё раз)";
+				content: 'Пароль (ещё раз)';
 			}
 		}
-	}
-
-	&__buttons {
-		position: absolute;
-		bottom: 0;
 	}
 
 	&__links {

@@ -1,15 +1,16 @@
-@import "./mixins";
-@import "./variables";
-@import "./button";
-@import "../pages/entrance/entrance";
-@import "../pages/chats/chats";
-@import "../pages/registration/registration";
-@import "../pages/popup/popup";
-@import "../pages/profile/profile";
-@import "../pages/error404/error404";
-@import "../pages/error500/error500";
-@import "../pages/pageDisplay/pageDisplay";
-@import "https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap";
+@import './mixins';
+@import './variables';
+@import './button';
+@import '../pages/entrance/entrance';
+@import '../pages/chats/chats';
+@import '../pages/registration/registration';
+@import '../pages/popup/popup';
+@import '../pages/profile/profile';
+@import '../pages/error404/error404';
+@import '../pages/error500/error500';
+@import '../pages/pageDisplay/pageDisplay';
+@import 'https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap';
+@import './validation';
 
 .container {
 	width: 1280px;
@@ -29,12 +30,4 @@ body {
 
 a {
 	text-decoration: none;
-}
-
-.validation {
-	border-bottom: 1px solid red !important;
-}
-
-.validationMessage {
-	border: 1px solid red !important;
 }

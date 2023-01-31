@@ -4,7 +4,7 @@ import template from './_button.pug';
 interface ButtonProps {
 	label: string;
 	classes: string;
-	events: {
+	events?: {
 		click: () => void;
 	};
 	type?: string;

@@ -4,6 +4,9 @@ import Profiles from '../Profiles';
 import template from './_content.pug';
 interface IContent {
 	trigger: string;
+	events?: {
+		submit: (e: Event) => void;
+	};
 }
 export default class Content extends Block<IContent> {
 	constructor(props: IContent) {
@@ -68,52 +71,44 @@ export default class Content extends Block<IContent> {
 		this.children.button = new Button({
 			label: 'Сохранить',
 			classes: 'profile',
-			type: 'submit',
-			events: {
-				click: () => this.onSubmit(this.props.trigger)
-			}
+			type: 'submit'
 		});
-	}
-	onSubmit(id: string) {
-		const form: HTMLFormElement | null = document.querySelector(`#${id} form`);
-		const inputs = form?.querySelectorAll('input');
-		const submit = (e: Event) => {
-			e.preventDefault();
-			if (inputs) {
-				for (let i = 0; i < inputs.length; i++) {
-					if (inputs[i].classList.contains('validation') || inputs[i].value === '') {
-						form?.removeEventListener('submit', submit);
-						return;
-					}
-				}
-			}
-			if (form) {
-				const formData: FormData = new FormData(form);
-				let data;
-				if (formData.get('email')) {
-					data = {
-						email: formData.get('email'),
-						login: formData.get('login'),
-						first_name: formData.get('first_name'),
-						second_name: formData.get('second_name'),
-						display_name: formData.get('display_name'),
-						phone: formData.get('phone')
-					};
-				} else {
-					data = {
-						oldPassword: formData.get('oldPassword'),
-						newPassword: formData.get('newPassword')
-					};
-				}
-
-				console.log(data);
-				form?.removeEventListener('submit', submit);
-			}
-		};
-
-		form?.addEventListener('submit', submit);
 	}
 	render() {
 		return this.compile(template, { ...this.props });
 	}
 }
+
+export const onSubmitProfile = (e: Event, id: string) => {
+	const form: HTMLFormElement | null = document.querySelector(`#${id} form`);
+	const inputs = form?.querySelectorAll('input');
+	e.preventDefault();
+	if (inputs) {
+		for (let i = 0; i < inputs.length; i++) {
+			if (inputs[i].classList.contains('validation') || inputs[i].value === '') {
+				return;
+			}
+		}
+	}
+	if (form) {
+		const formData: FormData = new FormData(form);
+		let data;
+		if (formData.get('email')) {
+			data = {
+				email: formData.get('email'),
+				login: formData.get('login'),
+				first_name: formData.get('first_name'),
+				second_name: formData.get('second_name'),
+				display_name: formData.get('display_name'),
+				phone: formData.get('phone')
+			};
+		} else {
+			data = {
+				oldPassword: formData.get('oldPassword'),
+				newPassword: formData.get('newPassword')
+			};
+		}
+
+		console.log(data);
+	}
+};

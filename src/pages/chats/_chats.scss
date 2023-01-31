@@ -19,7 +19,7 @@
 			display: none;
 			width: 970px;
 			height: 100%;
-			background: url("../assets/images/CHAT.png") center center no-repeat;
+			background: url('../assets/images/CHAT.png') center center no-repeat;
 			position: relative;
 		}
 	}
@@ -35,7 +35,7 @@
 		position: relative;
 
 		&::after {
-			content: ">";
+			content: '>';
 			width: 8px;
 			height: 100%;
 			color: var(--main-color);
@@ -399,6 +399,12 @@
 				border-radius: 30px;
 				padding: 10px 20px;
 				outline: none;
+			}
+			label {
+				display: inline-block;
+				color: red;
+				font-size: 10px;
+				width: 100%;
 			}
 		}
 
