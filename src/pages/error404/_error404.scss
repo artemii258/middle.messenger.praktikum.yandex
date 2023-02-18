@@ -1,5 +1,5 @@
 .error404 {
-	display: none;
+	display: flex;
 	padding: 50px 0;
 
 	&__block {
@@ -24,11 +24,11 @@
 		position: absolute;
 		bottom: 100px;
 		left: 50%;
-		width: 200px;
+		width: 150px;
 		transform: translateX(-100%);
 
 		&::before {
-			content: "\2794";
+			content: '\2794';
 			width: 20px;
 			height: 20px;
 			transform: rotate(180deg);

@@ -1,8 +1,11 @@
+import AuthController from '../../../../Controllers/AuthController';
+import { withStore } from '../../../../store/Store';
 import Block from '../../../../utils/Block';
 import { Button } from '../../button/Button';
 import Profiles from '../Profiles';
 import template from './_content.pug';
-interface IContent {
+
+export interface IContent {
 	trigger: string;
 	events?: {
 		submit: (e: Event) => void;
@@ -13,55 +16,55 @@ export default class Content extends Block<IContent> {
 		super({ ...props });
 	}
 	init() {
-		this.children.email = new Profiles({
+		this.children.emailInput = new Profiles({
 			text: 'Почта',
 			name: 'email',
 			type: 'email',
 			placeholder: 'pochta@yandex.ru'
 		});
-		this.children.login = new Profiles({
+		this.children.loginInput = new Profiles({
 			text: 'Логин',
 			name: 'login',
 			type: 'text',
 			placeholder: 'ivanivanov'
 		});
-		this.children.first_name = new Profiles({
+		this.children.first_nameInput = new Profiles({
 			text: 'Имя',
 			name: 'first_name',
 			type: 'text',
 			placeholder: 'Иван'
 		});
-		this.children.second_name = new Profiles({
+		this.children.second_nameInput = new Profiles({
 			text: 'Фамилия',
 			name: 'second_name',
 			type: 'text',
 			placeholder: 'Иванов'
 		});
-		this.children.display_name = new Profiles({
+		this.children.display_nameInput = new Profiles({
 			text: 'Имя в чате',
 			name: 'display_name',
 			type: 'text',
 			placeholder: 'Иван'
 		});
-		this.children.phone = new Profiles({
+		this.children.phoneInput = new Profiles({
 			text: 'Телефон',
 			name: 'phone',
 			type: 'tel',
 			placeholder: '+7 (909) 967 30 30'
 		});
-		this.children.oldPassword = new Profiles({
+		this.children.oldPasswordInput = new Profiles({
 			text: 'Старый пароль',
 			name: 'oldPassword',
 			type: 'password',
 			placeholder: ''
 		});
-		this.children.newPassword = new Profiles({
+		this.children.newPasswordInput = new Profiles({
 			text: 'Новый пароль',
 			name: 'newPassword',
 			type: 'password',
 			placeholder: ''
 		});
-		this.children.newPassword2 = new Profiles({
+		this.children.newPassword2Input = new Profiles({
 			text: 'Повторите новый пароль',
 			name: 'newPasswordRepeat',
 			type: 'password',
@@ -80,7 +83,7 @@ export default class Content extends Block<IContent> {
 }
 
 export const onSubmitProfile = (e: Event, id: string) => {
-	const form: HTMLFormElement | null = document.querySelector(`#${id} form`);
+	const form: HTMLFormElement | null = document.querySelector(`#${id}`);
 	const inputs = form?.querySelectorAll('input');
 	e.preventDefault();
 	if (inputs) {
@@ -95,20 +98,24 @@ export const onSubmitProfile = (e: Event, id: string) => {
 		let data;
 		if (formData.get('email')) {
 			data = {
-				email: formData.get('email'),
-				login: formData.get('login'),
-				first_name: formData.get('first_name'),
-				second_name: formData.get('second_name'),
-				display_name: formData.get('display_name'),
-				phone: formData.get('phone')
+				email: formData.get('email')! as string,
+				login: formData.get('login')! as string,
+				first_name: formData.get('first_name')! as string,
+				second_name: formData.get('second_name')! as string,
+				display_name: formData.get('display_name')! as string,
+				phone: formData.get('phone')! as string
 			};
+			AuthController.changeDate(data);
 		} else {
 			data = {
-				oldPassword: formData.get('oldPassword'),
-				newPassword: formData.get('newPassword')
+				oldPassword: formData.get('oldPassword')! as string,
+				newPassword: formData.get('newPassword')! as string
 			};
+			AuthController.changePassword(data);
 		}
-
-		console.log(data);
 	}
 };
+
+const withUser = withStore((state) => ({ ...state.user }));
+
+export const ContentPage = withUser<IContent>(Content);

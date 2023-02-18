@@ -1,5 +1,5 @@
 .profile {
-	display: none;
+	display: block;
 	padding: 60px 0 109px;
 	width: 510px;
 	margin: 0 auto;
@@ -25,14 +25,16 @@
 
 		li {
 			list-style-type: none;
-			padding: 15px 0;
-
+			padding: 12px 0;
 			&:last-child {
 				a {
 					color: #f00;
 				}
 			}
 		}
+	}
+	&__menu-active {
+		text-shadow: 1px 1px 1px;
 	}
 
 	&__link {
@@ -81,10 +83,11 @@
 	}
 
 	&__content {
-		width: 100%;
+		width: 510px;
 		position: absolute;
-		bottom: 109px;
-		left: 0;
+		top: 300px;
+		left: 50%;
+		transform: translateX(-50%);
 
 		&-form {
 			width: 100%;

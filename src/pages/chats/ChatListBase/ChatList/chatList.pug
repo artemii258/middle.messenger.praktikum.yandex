@@ -1,0 +1,9 @@
+li.chats__friends-list
+    .chats__friends-img
+        img(src=`${last_message ? 'https://ya-praktikum.tech/api/v2/resources' + last_message.user.avatar : 'https://new.kemmamed.ru/upload/staff_photo_no.jpg'}`)
+    .chats__friends-middle
+        .chats__friends-name #{title}
+        .chats__friends-text #{last_message ? last_message.content : null}
+    .chats__friends-right
+        .chats__friends-time #{last_message ? last_message.time : null}
+        .chats__friends-count #{unread_count}   

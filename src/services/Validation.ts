@@ -43,6 +43,9 @@ export default class Validation {
 			case 'newPassword':
 				this.password(input);
 				break;
+			case 'newPasswordRepeat':
+				this.passwordRepeat(input);
+				break;
 
 			default:
 				break;
@@ -107,6 +110,19 @@ export default class Validation {
 			if (input.nextSibling) {
 				input.nextSibling.textContent =
 					'от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра';
+			}
+			input.classList.add('validation');
+		}
+	};
+	passwordRepeat = (input: HTMLInputElement) => {
+		if (/\w{8,40}/.test(input.value) && input.value.match(/[A-Z]/g) && input.value.match(/\d/g)) {
+			if (input.nextSibling) {
+				input.nextSibling.textContent = '';
+			}
+			input.classList.remove('validation');
+		} else {
+			if (input.nextSibling) {
+				input.nextSibling.textContent = 'пароль не совпадает';
 			}
 			input.classList.add('validation');
 		}

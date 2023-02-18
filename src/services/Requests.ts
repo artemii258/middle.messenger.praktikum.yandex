@@ -1,19 +1,21 @@
+import { IPassword, IUser } from '../api/AuthAPI';
+
 enum METHODS {
 	GET = 'GET',
 	POST = 'POST',
 	PUT = 'PUT',
 	DELETE = 'DELETE'
 }
-interface IGET {
-	headers: Record<string, string>;
-	data: string;
-	method: string;
-}
 
-type Options = {
-	headers: Record<string, string>;
+type OptionsRequest = {
+	headers?: Record<string, string>;
 	method: 'GET' | 'POST' | 'PUT' | 'DELETE';
 	data?: any;
+	credentials?: string;
+};
+type Options = {
+	headers?: Record<string, string>;
+	data?: Object;
 };
 
 function queryStringify(data: string) {
@@ -33,24 +35,26 @@ export default class HTTPTransport {
 	constructor() {
 		this.baseURL = 'https://ya-praktikum.tech/api/v2/';
 	}
-	get = <Response>(url: string, options: IGET): Promise<Response> => {
-		return this.request<Response>(`${this.baseURL}${url}`, { ...options, method: METHODS.GET });
+	get = <Response>(url: string): Promise<Response> => {
+		return this.request<Response>(`${this.baseURL}${url}`, { method: METHODS.GET });
 	};
 
-	post = <Response>(url: string, options: Options): Promise<Response> => {
+	post = <Response>(url: string, options?: Options): Promise<Response> => {
 		return this.request<Response>(`${this.baseURL}${url}`, { ...options, method: METHODS.POST });
 	};
 
-	put = <Response>(url: string, options: Options): Promise<Response> => {
-		return this.request(`${this.baseURL}${url}`, { ...options, method: METHODS.PUT });
+	put = <Response>(url: string, options?: IUser | IPassword | Object): Promise<Response> => {
+		return this.request(`${this.baseURL}${url}`, {
+			...options,
+			method: METHODS.PUT
+		});
 	};
 
 	delete = <Response>(url: string, options: Options): Promise<Response> => {
 		return this.request(`${this.baseURL}${url}`, { ...options, method: METHODS.DELETE });
 	};
-	private request = <Response>(url: string, options: Options): Promise<Response> => {
+	private request = <Response>(url: string, options: OptionsRequest): Promise<Response> => {
 		const { headers = {}, method, data } = options;
-
 		return new Promise(function (resolve, reject) {
 			if (!method) {
 				reject('No method');
@@ -64,20 +68,25 @@ export default class HTTPTransport {
 			Object.keys(headers).forEach((key) => {
 				xhr.setRequestHeader(key, headers[key]);
 			});
-
-			xhr.onload = function () {
-				resolve(xhr.response);
-			};
-
+			xhr.withCredentials = true;
+			xhr.responseType = 'json';
 			xhr.onabort = reject;
 			xhr.onerror = reject;
-
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						resolve(xhr.response);
+					} else {
+						reject(xhr.response);
+					}
+				}
+			};
 			xhr.ontimeout = reject;
-
+			const dataJSON = data instanceof FormData ? data : JSON.stringify(data);
 			if (isGet || !data) {
 				xhr.send();
 			} else {
-				xhr.send(data);
+				xhr.send(dataJSON);
 			}
 		});
 	};

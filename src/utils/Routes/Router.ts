@@ -1,3 +1,4 @@
+import Popup from '../../pages/popup/Popup';
 import Block from '../Block';
 import Route from './Route';
 
@@ -11,14 +12,13 @@ class Router {
 		if (Router.__instance) {
 			return Router.__instance;
 		}
-
 		this.routes = [];
 
 		Router.__instance = this;
 	}
 
-	public use(pathname: string, block: typeof Block) {
-		const route = new Route(pathname, block, this.rootQuery);
+	public use(pathname: string, block: typeof Block, props: object = {}) {
+		const route = new Route(pathname, block, this.rootQuery, props);
 		this.routes.push(route);
 
 		return this;
@@ -35,19 +35,30 @@ class Router {
 	}
 
 	private _onRoute(pathname: string) {
-		const route = this.getRoute(pathname);
+		const checkPathname = this.routes.find((route) => route.match(pathname));
+		if (checkPathname) {
+			const route = this.getRoute(pathname);
+			route.forEach((route) => {
+				if (!route) {
+					return;
+				}
 
-		if (!route) {
-			return;
+				if (this.currentRoute && this.currentRoute !== route) {
+					this.currentRoute.leave();
+				}
+
+				this.currentRoute = route;
+				const checkClass = route.blockClass;
+
+				if (checkClass === Popup) {
+					route.render('body');
+				} else {
+					route.render();
+				}
+			});
+		} else {
+			this.go('/error404');
 		}
-
-		if (this.currentRoute && this.currentRoute !== route) {
-			this.currentRoute.leave();
-		}
-
-		this.currentRoute = route;
-
-		route.render();
 	}
 
 	public go(pathname: string) {
@@ -65,7 +76,7 @@ class Router {
 	}
 
 	private getRoute(pathname: string) {
-		return this.routes.find((route) => route.match(pathname));
+		return this.routes.filter((route) => route.match(pathname));
 	}
 }
 

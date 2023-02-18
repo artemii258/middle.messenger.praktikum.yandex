@@ -3,7 +3,7 @@
 	position: fixed;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	display: none;
+	display: block;
 	background: #fff;
 	box-shadow: 0 0 6px rgb(0 0 0 / 14%);
 	border-radius: 12px;
@@ -11,7 +11,7 @@
 	z-index: 1000;
 
 	&__backgraund {
-		display: none;
+		display: block;
 		background: var(--main-color);
 		opacity: 0.4;
 		height: 100vh;
@@ -65,7 +65,8 @@
 	}
 }
 
-#popup__avatar .popup {
+#popup__avatar .popup,
+#popup__file .popup {
 	&__input {
 		border: none;
 		display: flex;

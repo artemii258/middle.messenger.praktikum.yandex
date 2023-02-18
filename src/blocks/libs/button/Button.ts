@@ -5,7 +5,7 @@ interface ButtonProps {
 	label: string;
 	classes: string;
 	events?: {
-		click: () => void;
+		click: (e: Event) => void;
 	};
 	type?: string;
 }

@@ -2,6 +2,10 @@ import Block from '../../utils/Block';
 import { Button } from '../../blocks/libs/button/Button';
 import { Input } from '../../blocks/libs/input/Input';
 import template from './popup.pug';
+import AuthController from '../../Controllers/AuthController';
+import ChatsController from '../../Controllers/ChatsController';
+import store from '../../store/Store';
+import { IChatInfo } from '../../api/ChatAPI';
 
 interface IPopup {
 	title: string;
@@ -53,16 +57,20 @@ export const onSubmitPopup = (e: Event, id: string) => {
 	if (form) {
 		const formData: FormData = new FormData(form);
 		let data;
-		if (formData.get('login')) {
-			data = {
-				login: formData.get('login')
-			};
-		} else if (formData.get('file')) {
-			console.log(formData.get('file'));
-			data = {
-				file: formData.get('file')
-			};
+		if (id === 'add') {
+			const title = formData.get('login') as string;
+
+			ChatsController.create(title, inputs![0]);
+		} else if (id === 'avatar') {
+			const formData: FormData = new FormData();
+			const input: HTMLInputElement = inputs![0];
+
+			formData.append('avatar', input.files?.item(0)!);
+			AuthController.changeAvatar(formData);
+		} else if (id === 'delete') {
+			const allChats = store.getState();
+			const id = allChats.chats.find((chat: IChatInfo) => chat.title === formData.get('login')).id;
+			ChatsController.delete(id, inputs![0]);
 		}
-		console.log(data);
 	}
 };

@@ -4,6 +4,8 @@ section.profile
         li.profile__item
             #{chat}
         li.profile__item
+            #{profile}
+        li.profile__item
             #{data}
         li.profile__item
             #{password}
@@ -11,10 +13,9 @@ section.profile
             #{exit}
     .profile__wrapper
         .profile__header
-            .profile__avatar
-                    img(src=`${avatar}` alt='avatar')
-                    .profile__hover Поменять аватар
-            h3.profile__name Артемий 
-        #{profile}
-            #{changesData}
-                #{changesPassword}
+            div(class='profile__avatar') 
+                    img(src=`${avatar ? 'https://ya-praktikum.tech/api/v2/resources' + avatar : 'https://new.kemmamed.ru/upload/staff_photo_no.jpg'}` alt='avatar')
+                    div(class='profile__hover' data-href='/profile/changeAvatar') Поменять аватар
+            h3.profile__name #{first_name} 
+        
+

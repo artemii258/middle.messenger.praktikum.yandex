@@ -1,11 +1,13 @@
 import Block from '../../utils/Block';
 import { Links } from '../../blocks/libs/links/Links';
-import Content from '../../blocks/libs/profiles/content/Content';
-import { onSubmitProfile } from '../../blocks/libs/profiles/content/Content';
 import template from './profile.pug';
+import { withStore } from '../../store/Store';
+import AuthController from '../../Controllers/AuthController';
 
-interface IProfile {
-	avatar: HTMLImageElement;
+export interface IProfile {
+	events: {
+		click: () => void;
+	};
 }
 
 export default class Profile extends Block<IProfile> {
@@ -13,22 +15,30 @@ export default class Profile extends Block<IProfile> {
 		super({ ...props });
 	}
 	init() {
+		AuthController.fetchUser();
+
 		this.children.chat = new Links({
 			text: 'Чат',
 			classes: 'profile',
-			href: '#',
+			href: '/messenger',
+			li: true
+		});
+		this.children.profile = new Links({
+			text: 'Профиль',
+			classes: 'profile__menu-active profile',
+			href: '/profile',
 			li: true
 		});
 		this.children.data = new Links({
 			text: 'Изменить данные',
 			classes: 'profile',
-			href: '#',
+			href: '/profile/data',
 			li: true
 		});
 		this.children.password = new Links({
 			text: 'Изменить пароль',
 			classes: 'profile',
-			href: '#',
+			href: '/profile/password',
 			li: true
 		});
 		this.children.exit = new Links({
@@ -37,24 +47,13 @@ export default class Profile extends Block<IProfile> {
 			href: '#',
 			li: true
 		});
-		this.children.profile = new Content({
-			trigger: 'profile'
-		});
-		this.children.changesData = new Content({
-			trigger: 'data',
-			events: {
-				submit: (e: Event) => onSubmitProfile(e, 'data')
-			}
-		});
-		this.children.changesPassword = new Content({
-			trigger: 'password',
-			events: {
-				submit: (e: Event) => onSubmitProfile(e, 'password')
-			}
-		});
 	}
 
 	render() {
 		return this.compile(template, { ...this.props });
 	}
 }
+
+const withUser = withStore((state) => ({ ...state.user }));
+
+export const ProfilePage = withUser<IProfile>(Profile);
