@@ -3,7 +3,7 @@ import ActivationRoute from '../../../utils/Routes';
 import template from './_links.pug';
 
 interface ILinksProps {
-	text: string;
+	text?: string;
 	classes: string;
 	href: string;
 	events?: {
