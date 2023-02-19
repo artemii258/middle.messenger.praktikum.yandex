@@ -1,10 +1,8 @@
 // @ts-ignore
 import AuthController from '../Controllers/AuthController';
-import ChatsController from '../Controllers/ChatsController';
 import ActivationRoute from '../utils/Routes';
 
 window.addEventListener('DOMContentLoaded', async () => {
-	AuthController.fetchUser();
 	const route = new ActivationRoute();
 	if (/profile/g.test(location.pathname)) {
 		highlightingText();
@@ -15,7 +13,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 		route.activation();
 	} catch (e) {
-		route.activationRorNonRegistered();
+		route.activationForNonRegistered();
 	}
 });
 

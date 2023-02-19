@@ -56,6 +56,8 @@ class Router {
 					route.render();
 				}
 			});
+		} else if (pathname === '/' || pathname === '/sign-up') {
+			this.go('/messenger');
 		} else {
 			this.go('/error404');
 		}

@@ -1,6 +1,6 @@
 import API, { ChatsAPI } from '../api/ChatAPI';
 import store from '../store/Store';
-import MessagesController from './MessagesController';
+import { MessageController } from './MessagesController';
 
 class ChatsController {
 	private readonly api: ChatsAPI;
@@ -10,7 +10,7 @@ class ChatsController {
 	}
 
 	async create(title: string, input: HTMLInputElement) {
-		await this.api.create(title).then((res) => {
+		await this.api.create(title).then(() => {
 			input.value = '';
 		});
 
@@ -22,7 +22,7 @@ class ChatsController {
 
 		chats.map(async (chat) => {
 			const token = await this.getToken(chat.id);
-			await MessagesController.connect(chat.id, token);
+			await MessageController.connect(chat.id, token);
 		});
 		store.set('chats', chats);
 		store.set('search', chats);
@@ -53,9 +53,4 @@ class ChatsController {
 	}
 }
 
-const controller = new ChatsController();
-
-// @ts-ignore
-window.chatsController = controller;
-
-export default controller;
+export const ChatController = new ChatsController();

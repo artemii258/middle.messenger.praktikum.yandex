@@ -2,7 +2,7 @@ import Block from '../../utils/Block';
 import { Links } from '../../blocks/libs/links/Links';
 import template from './profile.pug';
 import { withStore } from '../../store/Store';
-import AuthController from '../../Controllers/AuthController';
+import { AuthentificationController } from '../../Controllers/AuthController';
 
 export interface IProfile {
 	events: {
@@ -15,7 +15,7 @@ export default class Profile extends Block<IProfile> {
 		super({ ...props });
 	}
 	init() {
-		AuthController.fetchUser();
+		AuthentificationController.fetchUser();
 
 		this.children.chat = new Links({
 			text: 'Чат',

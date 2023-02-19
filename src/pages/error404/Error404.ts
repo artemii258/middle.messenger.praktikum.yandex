@@ -1,7 +1,6 @@
 import Block from '../../utils/Block';
 import { Button } from '../../blocks/libs/button/Button';
 import template from './error404.pug';
-import Router from '../../utils/Routes/Router';
 
 interface IError404 {
 	images: HTMLImageElement;

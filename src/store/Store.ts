@@ -1,14 +1,10 @@
 import EventBus from '../utils/Event-bus';
 import { set } from '../utils/helpers';
-import { images } from '../pages/chats/Chats';
 import Block from '../utils/Block';
 
 export enum StoreEvents {
 	Updated = 'updated'
 }
-type Obj = {
-	[index: string]: any;
-};
 type PlainObject<T = any> = {
 	[k in string]: T;
 };

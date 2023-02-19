@@ -1,12 +1,4 @@
-import API, {
-	AuthAPI,
-	ISigninData,
-	ISignupData,
-	IUser,
-	IPassword,
-	IUserBody,
-	IPasswordBody
-} from '../api/AuthAPI';
+import API, { AuthAPI, ISigninData, ISignupData, IUserBody, IPasswordBody } from '../api/AuthAPI';
 import store from '../store/Store';
 import ActivationRoute from '../utils/Routes';
 import router from '../utils/Routes/Router';
@@ -21,7 +13,7 @@ export class AuthController {
 	async signin(data: ISigninData) {
 		await this.api
 			.signin(data)
-			.then((res) => {
+			.then(() => {
 				this.fetchUser();
 			})
 			.then(() => {
@@ -34,7 +26,7 @@ export class AuthController {
 	async signup(data: ISignupData) {
 		await this.api
 			.signup(data)
-			.then((res) => {
+			.then(() => {
 				this.fetchUser();
 			})
 			.then(() => new ActivationRoute().activation())
@@ -87,7 +79,7 @@ export class AuthController {
 	async logout() {
 		try {
 			await this.api.logout();
-			new ActivationRoute().activationRorNonRegistered();
+			new ActivationRoute().activationForNonRegistered();
 			router.go('/');
 		} catch (e: any) {
 			console.error(e.message);
@@ -95,4 +87,4 @@ export class AuthController {
 	}
 }
 
-export default new AuthController();
+export const AuthentificationController = new AuthController();

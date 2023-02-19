@@ -1,6 +1,5 @@
 import EventBus from './Event-bus';
 import { nanoid } from 'nanoid';
-import ActivationRoute from './Routes';
 
 let eventBackgraund = false;
 

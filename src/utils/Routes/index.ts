@@ -8,7 +8,7 @@ import { ContentPage } from '../../blocks/libs/profiles/content/Content';
 import Registration, { onSubmitRegistration } from '../../pages/registration/Registration';
 import Block from '../Block';
 import page from './Router';
-import AuthController from '../../Controllers/AuthController';
+import { AuthentificationController } from '../../Controllers/AuthController';
 import Error404 from '../../pages/error404/Error404';
 
 enum Routes {
@@ -28,13 +28,6 @@ enum Routes {
 export default class ActivationRoute {
 	activation = () => {
 		page
-			.use(Routes.Index, Entrance)
-			.use(Routes.Register, Registration as typeof Block, {
-				classes: 'registration',
-				events: {
-					submit: onSubmitRegistration
-				}
-			})
 			.use(Routes.Chats, Messenger as typeof Block, { classes: 'chats', images })
 			.use(Routes.AddFile, Chats as typeof Block, { classes: 'chats', images })
 			.use(Routes.AddFile, Popup as typeof Block, {
@@ -135,7 +128,7 @@ export default class ActivationRoute {
 			})
 			.start();
 	};
-	activationRorNonRegistered = () => {
+	activationForNonRegistered = () => {
 		page
 			.use(Routes.Index, Entrance)
 			.use(Routes.Register, Registration as typeof Block, {
@@ -154,7 +147,7 @@ export default class ActivationRoute {
 
 		const target = e.target as HTMLLinkElement;
 		if (target.getAttribute('href') === '#') {
-			AuthController.logout();
+			AuthentificationController.logout();
 			return;
 		}
 		let path = target.getAttribute('href')

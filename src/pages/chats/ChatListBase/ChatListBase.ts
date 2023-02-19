@@ -3,7 +3,7 @@ import template from './ChatListBase.pug';
 import { Chat } from './ChatList/ChatList';
 import { withStore } from '../../../store/Store';
 import { IChatInfo } from '../../../api/ChatAPI';
-import ChatsController from '../../../Controllers/ChatsController';
+import { ChatController } from '../../../Controllers/ChatsController';
 
 interface ChatsListProps {
 	chats: IChatInfo[];
@@ -17,8 +17,7 @@ class ChatsListBase extends Block<ChatsListProps> {
 	protected init() {
 		this.children.chats = this.createChats(this.props);
 	}
-
-	protected componentDidUpdate(oldProps: ChatsListProps, newProps: ChatsListProps): boolean {
+	protected componentDidUpdate(_oldProps: ChatsListProps, newProps: ChatsListProps): boolean {
 		this.children.chats = this.createChats(newProps);
 		return true;
 	}
@@ -42,7 +41,7 @@ class ChatsListBase extends Block<ChatsListProps> {
 				...data,
 				events: {
 					click: () => {
-						ChatsController.selectChat(data.id);
+						ChatController.selectChat(data.id);
 						(document.querySelector('.chats__message-form') as HTMLElement).style.display = 'flex';
 						(document.querySelector('.chats__block-right') as HTMLElement).style.display = 'none';
 					}

@@ -2,7 +2,7 @@ import Block from '../../utils/Block';
 import { Button } from '../../blocks/libs/button/Button';
 import { Input } from '../../blocks/libs/input/Input';
 import { Links } from '../../blocks/libs/links/Links';
-import AuthController from '../../Controllers/AuthController';
+import { AuthentificationController } from '../../Controllers/AuthController';
 import { ISignupBody } from '../../api/AuthAPI';
 import template from './registration.pug';
 
@@ -92,7 +92,7 @@ export const onSubmitRegistration = (e: Event) => {
 			phone: formData.get('phone'),
 			password: formData.get('password')
 		};
-		AuthController.signup({
+		AuthentificationController.signup({
 			headers: { 'Content-Type': 'application/json' },
 			data: data as ISignupBody
 		});

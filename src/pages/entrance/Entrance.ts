@@ -3,8 +3,7 @@ import { Button } from '../../blocks/libs/button/Button';
 import { Input } from '../../blocks/libs/input/Input';
 import { Links } from '../../blocks/libs/links/Links';
 import template from './entrance.pug';
-import HTTPTransport from '../../services/Requests';
-import AuthController from '../../Controllers/AuthController';
+import { AuthentificationController } from '../../Controllers/AuthController';
 
 export default class Entrance extends Block {
 	constructor() {
@@ -52,7 +51,7 @@ export default class Entrance extends Block {
 				login: formData.get('login')! as string,
 				password: formData.get('password')! as string
 			};
-			AuthController.signin({
+			AuthentificationController.signin({
 				data,
 				headers: {
 					'Content-Type': 'application/json'

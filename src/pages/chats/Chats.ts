@@ -14,9 +14,9 @@ import send from '../../assets/svg/send.svg';
 import template from './chats.pug';
 import { ChatsList } from './ChatListBase/ChatListBase';
 import { Button } from '../../blocks/libs/button/Button';
-import ChatsController from '../../Controllers/ChatsController';
+import { ChatController } from '../../Controllers/ChatsController';
 import store, { withStore } from '../../store/Store';
-import MessagesController from '../../Controllers/MessagesController';
+import { MessageController } from '../../Controllers/MessagesController';
 import { MessengerList } from './Messages/Messages';
 
 export const images = {
@@ -41,7 +41,7 @@ export default class Chats extends Block<IChats> {
 		super({ ...props });
 	}
 	init() {
-		ChatsController.fetchChats();
+		ChatController.fetchChats();
 
 		this.children.list = new ChatsList({});
 
@@ -118,7 +118,7 @@ export default class Chats extends Block<IChats> {
 						const message = formData.get('message') as string;
 						inputs![0].value = '';
 
-						MessagesController.sendMessage(store.getState().selectedChat!, message);
+						MessageController.sendMessage(store.getState().selectedChat!, message);
 					}
 				}
 			}
