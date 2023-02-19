@@ -1,5 +1,5 @@
 // @ts-ignore
-import AuthController from '../Controllers/AuthController';
+import { AuthentificationController } from '../Controllers/AuthController';
 import ActivationRoute from '../utils/Routes';
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 	}
 
 	try {
-		await AuthController.fetchUser();
+		await AuthentificationController.fetchUser();
 
 		route.activation();
 	} catch (e) {
