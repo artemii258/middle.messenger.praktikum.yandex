@@ -1,8 +1,8 @@
 div(class=`${classes}__inputs-input`)
-    if (id !== 'avatar')
+    if (id !== 'avatar' && id !== 'file')
         input(name=`${name}`, type=`${type}`, placeholder=`${placeholder || ''}` id=`${id || ''}`)
         label
-    if (id === 'avatar')
+    if (id === 'avatar' || id === 'file')
         input(name=`${name}`, type=`${type}`, placeholder=`${placeholder = ''}` id=`${id}`)
         label(for=`${id}`) Выбрать файл на компьютере
     

@@ -12,10 +12,10 @@ export default class Error404 extends Block<IError404> {
 	}
 	init() {
 		this.children.button = new Button({
-			label: 'Назад к чатам',
+			label: 'Назад',
 			classes: 'error404',
 			events: {
-				click: () => console.log('submit')
+				click: () => history.go(-2)
 			}
 		});
 	}

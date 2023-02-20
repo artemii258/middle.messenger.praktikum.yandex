@@ -11,9 +11,13 @@ import paperclip from '../../assets/icons/paperclip.png';
 import photo from '../../assets/svg/photo.svg';
 import file from '../../assets/svg/file.svg';
 import send from '../../assets/svg/send.svg';
-import avatar from '../../assets/images/avatar.jpg';
 import template from './chats.pug';
+import { ChatsList } from './ChatListBase/ChatListBase';
 import { Button } from '../../blocks/libs/button/Button';
+import { ChatController } from '../../Controllers/ChatsController';
+import store, { withStore } from '../../store/Store';
+import { MessageController } from '../../Controllers/MessagesController';
+import { MessengerList } from './Messages/Messages';
 
 export const images = {
 	magnifier,
@@ -25,13 +29,11 @@ export const images = {
 	paperclip,
 	photo,
 	file,
-	send,
-	avatar
+	send
 };
 
 interface IChats {
-	classes: string;
-	images: Record<string, HTMLImageElement>;
+	classes?: string;
 }
 
 export default class Chats extends Block<IChats> {
@@ -39,16 +41,55 @@ export default class Chats extends Block<IChats> {
 		super({ ...props });
 	}
 	init() {
+		ChatController.fetchChats();
+
+		this.children.list = new ChatsList({});
+
+		this.children.messages = new MessengerList({});
 		this.children.link = new Links({
 			text: 'Профиль',
 			classes: 'chats',
-			href: '#'
+			href: '/profile'
+		});
+		this.children.photoOrVideo = new Links({
+			text: 'Фото или Видео',
+			classes: 'chats',
+			href: '/messenger/addPhotoOrVideo',
+			li: true
+		});
+		this.children.file = new Links({
+			text: 'Файл',
+			classes: 'chats',
+			href: '/messenger/addFile',
+			li: true
+		});
+		this.children.addUser = new Links({
+			text: 'Добавить пользователя',
+			classes: 'chats',
+			href: '/messenger/addUser',
+			li: true
+		});
+		this.children.deleteUser = new Links({
+			text: 'Удалить пользователя',
+			classes: 'chats',
+			href: '/messenger/deleteUser',
+			li: true
 		});
 		this.children.search = new Input({
 			name: 'search',
 			classes: 'chats',
 			type: 'text',
-			placeholder: 'Поиск'
+			placeholder: 'Поиск',
+			events: {
+				input: (e: Event) => {
+					const target = e.target as HTMLInputElement;
+					const regexp = new RegExp(`^${target.value}`, 'i');
+					const res = store.getState().chats.filter((obj: { title: string }) => {
+						return regexp.test(obj.title);
+					});
+					store.set('search', res);
+				}
+			}
 		});
 		this.children.message = new Input({
 			name: 'message',
@@ -57,39 +98,41 @@ export default class Chats extends Block<IChats> {
 			placeholder: 'Сообщение'
 		});
 		this.children.button = new Button({
-			label: 'Отправить',
+			label: '',
 			classes: 'chats__message-send chats',
 			type: 'submit',
 			events: {
-				click: this.onSubmit
-			}
-		});
-	}
-	onSubmit() {
-		const form: HTMLFormElement | null = document.querySelector('.chats__message-form');
-		const inputs = form?.querySelectorAll('input');
-		const submit = (e: Event) => {
-			e.preventDefault();
-			if (inputs) {
-				for (let i = 0; i < inputs.length; i++) {
-					if (inputs[i].value === '') {
-						form?.removeEventListener('submit', submit);
-						return;
+				click: (e: Event) => {
+					const form: HTMLFormElement | null = document.querySelector('.chats__message-form');
+					const inputs = form?.querySelectorAll('input');
+					e.preventDefault();
+					if (inputs) {
+						for (let i = 0; i < inputs.length; i++) {
+							if (inputs[i].value === '') {
+								return;
+							}
+						}
+					}
+					if (form) {
+						const formData: FormData = new FormData(form);
+						const message = formData.get('message') as string;
+						inputs![0].value = '';
+
+						MessageController.sendMessage(store.getState().selectedChat!, message);
 					}
 				}
 			}
-			if (form) {
-				const formData: FormData = new FormData(form);
-				const data = {
-					message: formData.get('message')
-				};
-				console.log(data);
-				form?.removeEventListener('submit', submit);
-			}
-		};
-		form?.addEventListener('submit', submit);
+		});
 	}
+
 	render() {
 		return this.compile(template, { ...this.props });
 	}
 }
+
+const withSelectedChatMessages = withStore((state) => ({
+	...state.user,
+	...state.selectedChat
+}));
+
+export const Messenger = withSelectedChatMessages(Chats);

@@ -1,6 +1,8 @@
 import EventBus from './Event-bus';
 import { nanoid } from 'nanoid';
 
+let eventBackgraund = false;
+
 // Нельзя создавать экземпляр данного класса
 export default class Block<P extends Record<string, any> = any> {
 	static EVENTS = {
@@ -12,7 +14,7 @@ export default class Block<P extends Record<string, any> = any> {
 
 	public id = nanoid(6);
 	protected props: P;
-	public children: Record<string, Block>;
+	public children: Record<string, Block | Block[]>;
 	private eventBus: () => EventBus;
 	private _element: HTMLElement | null = null;
 
@@ -55,11 +57,17 @@ export default class Block<P extends Record<string, any> = any> {
 	_addEvents() {
 		const { events = {} } = this.props as P & { events: Record<string, () => void> };
 		Object.keys(events).forEach((eventName) => {
-			if (this._element?.querySelector('form')) {
-				this._element?.querySelector('form')?.addEventListener(eventName, events[eventName]);
+			if (this._element?.tagName === 'FORM' || this._element?.querySelector('form')) {
+				this._element?.addEventListener(eventName, events[eventName]);
 			} else if (this._element?.querySelector('input')) {
 				this._element?.querySelector('input')?.addEventListener(eventName, events[eventName]);
 			} else {
+				if (eventName === 'click' && events[eventName].name === 'onClick' && !eventBackgraund) {
+					document
+						.querySelector('.popup__backgraund')
+						?.addEventListener(eventName, events[eventName]);
+					eventBackgraund = true;
+				}
 				this._element?.addEventListener(eventName, events[eventName]);
 			}
 		});
@@ -68,8 +76,8 @@ export default class Block<P extends Record<string, any> = any> {
 		const { events = {} } = this.props as P & { events: Record<string, () => void> };
 
 		Object.keys(events).forEach((eventName) => {
-			if (this._element?.querySelector('form')) {
-				this._element?.querySelector('form')?.removeEventListener(eventName, events[eventName]);
+			if (this._element?.tagName === 'FORM' || this._element?.querySelector('form')) {
+				this._element?.removeEventListener(eventName, events[eventName]);
 			} else if (this._element?.querySelector('input')) {
 				this._element?.querySelector('input')?.removeEventListener(eventName, events[eventName]);
 			} else {
@@ -102,7 +110,13 @@ export default class Block<P extends Record<string, any> = any> {
 	public dispatchComponentDidMount() {
 		this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
-		Object.values(this.children).forEach((child) => child.dispatchComponentDidMount());
+		Object.values(this.children).forEach((child) => {
+			if (Array.isArray(child)) {
+				child.forEach((ch) => ch.dispatchComponentDidMount());
+			} else {
+				child.dispatchComponentDidMount();
+			}
+		});
 	}
 
 	private _componentDidUpdate(oldProps: P, newProps: P) {
@@ -144,14 +158,22 @@ export default class Block<P extends Record<string, any> = any> {
 
 	protected compile(template: (context: any) => string, context: any) {
 		const contextAndStubs = { ...context };
+
 		Object.entries(this.children).forEach(([name, component]) => {
-			contextAndStubs[name] = `div data-id="${component.id}"></div`;
+			if (Array.isArray(component)) {
+				contextAndStubs[name] = component.map((child) => `div data-id="${child.id}"></div`);
+			} else {
+				contextAndStubs[name] = `div data-id="${component.id}"></div`;
+			}
 		});
 
-		const temp = document.createElement('template');
 		const html = template(contextAndStubs);
+
+		const temp = document.createElement('template');
+
 		temp.innerHTML = html;
-		Object.entries(this.children).forEach(([_, component]) => {
+
+		const replaceStub = (component: Block) => {
 			const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
 
 			if (!stub) {
@@ -159,9 +181,17 @@ export default class Block<P extends Record<string, any> = any> {
 			}
 
 			component.getContent()?.append(...Array.from(stub.childNodes));
-
 			stub.replaceWith(component.getContent()!);
+		};
+
+		Object.entries(this.children).forEach(([_, component]) => {
+			if (Array.isArray(component)) {
+				component.forEach(replaceStub);
+			} else {
+				replaceStub(component);
+			}
 		});
+
 		return temp.content;
 	}
 
@@ -170,6 +200,20 @@ export default class Block<P extends Record<string, any> = any> {
 	}
 
 	getContent() {
+		if (/\/error404/.test(window.location.pathname)) {
+			const background = document.querySelector('.popup__backgraund') as HTMLElement;
+			background.style.display = 'none';
+		} else if (
+			this._element?.getAttribute('class') === 'popup' ||
+			/\/addUser/.test(window.location.pathname) ||
+			/\/deleteUser/.test(window.location.pathname)
+		) {
+			const background = document.querySelector('.popup__backgraund') as HTMLElement;
+			background.style.display = 'block';
+		} else {
+			const background = document.querySelector('.popup__backgraund') as HTMLElement;
+			background.style.display = 'none';
+		}
 		return this.element;
 	}
 

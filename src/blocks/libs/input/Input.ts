@@ -10,18 +10,16 @@ interface IInputProps {
 	type?: string;
 	text?: string;
 	events?: {
-		focus: (e: FocusEvent) => void;
-		blur: (e: FocusEvent) => void;
+		focus?: (e: FocusEvent) => void;
+		blur?: (e: FocusEvent) => void;
+		input?: (e: Event) => void;
 	};
 }
 export class Input extends Block<IInputProps> {
 	constructor(props: IInputProps) {
 		super({
-			events: {
-				focus: new Validation().onFocus,
-				blur: new Validation().onBlur
-			},
-			...props
+			...props,
+			events: { ...props.events, focus: new Validation().onFocus, blur: new Validation().onBlur }
 		});
 	}
 

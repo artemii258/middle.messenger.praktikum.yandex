@@ -2,6 +2,8 @@ import Block from '../../utils/Block';
 import { Button } from '../../blocks/libs/button/Button';
 import { Input } from '../../blocks/libs/input/Input';
 import { Links } from '../../blocks/libs/links/Links';
+import { AuthentificationController } from '../../Controllers/AuthController';
+import { ISignupBody } from '../../api/AuthAPI';
 import template from './registration.pug';
 
 interface IRegistration {
@@ -59,7 +61,7 @@ export default class Registration extends Block {
 		this.children.link = new Links({
 			text: 'Войти',
 			classes: 'registration',
-			href: '#'
+			href: '/'
 		});
 	}
 
@@ -90,6 +92,9 @@ export const onSubmitRegistration = (e: Event) => {
 			phone: formData.get('phone'),
 			password: formData.get('password')
 		};
-		console.log(data);
+		AuthentificationController.signup({
+			headers: { 'Content-Type': 'application/json' },
+			data: data as ISignupBody
+		});
 	}
 };
