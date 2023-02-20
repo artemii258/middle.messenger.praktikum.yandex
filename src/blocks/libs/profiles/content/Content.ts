@@ -1,4 +1,4 @@
-import AuthController from '../../../../Controllers/AuthController';
+import { AuthentificationController } from '../../../../Controllers/AuthController';
 import { withStore } from '../../../../store/Store';
 import Block from '../../../../utils/Block';
 import { Button } from '../../button/Button';
@@ -105,13 +105,13 @@ export const onSubmitProfile = (e: Event, id: string) => {
 				display_name: formData.get('display_name')! as string,
 				phone: formData.get('phone')! as string
 			};
-			AuthController.changeDate(data);
+			AuthentificationController.changeDate(data);
 		} else {
 			data = {
 				oldPassword: formData.get('oldPassword')! as string,
 				newPassword: formData.get('newPassword')! as string
 			};
-			AuthController.changePassword(data);
+			AuthentificationController.changePassword(data);
 		}
 	}
 };
