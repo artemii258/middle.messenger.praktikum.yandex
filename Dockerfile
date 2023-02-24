@@ -1,5 +1,5 @@
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y nodejs && apt-get install -y npm && npm install
+FROM ubuntu:18.04
+RUN apt update && apt install -y nodejs && apt install -y npm 
 WORKDIR /var/www
 COPY . .
 EXPOSE 3000
