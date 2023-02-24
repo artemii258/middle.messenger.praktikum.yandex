@@ -1,5 +1,5 @@
 FROM ubuntu:22.04
-RUN apk add --update nodejs npm npm install --force
+RUN apt update && apt install -y nodejs && apt install -y npm && npm install
 WORKDIR /var/www
 COPY . .
 EXPOSE 3000
