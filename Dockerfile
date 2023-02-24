@@ -1,5 +1,5 @@
-FROM ubuntu:18.04
-RUN apt update && apt install -y nodejs && apt install -y npm 
+FROM node
+RUN npm install
 WORKDIR /var/www
 COPY . .
 EXPOSE 3000
