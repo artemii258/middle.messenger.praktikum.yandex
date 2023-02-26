@@ -33,15 +33,11 @@ module.exports = {
 		rules: [
 			{
 				test: /\.(svg|png|jpe?g|gif)$/i,
-				type: 'asset'
-				// generator: {
-				// 	filename: 'assets/img/[name][ext]'
-				// }
+				type: 'asset',
+				generator: {
+					filename: 'images/[name][ext]'
+				}
 			},
-			// {
-			// 	test: /\.(svg|png|jpe?g|gif)$/i,
-			// 	type: 'asset/inline'
-			// },
 			{
 				test: /\.pug$/,
 				loader: PugPlugin.loader
@@ -51,8 +47,7 @@ module.exports = {
 				use: [
 					MiniCssExtractPlugin.loader,
 					{
-						loader: 'css-loader',
-						options: { url: false }
+						loader: 'css-loader'
 					},
 					{
 						loader: 'postcss-loader',
