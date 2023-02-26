@@ -8,9 +8,7 @@
 		"clean": "node ./node_modules/parcel-dist-cleaner/distCleaner",
 		"noEmit": "tsc --noEmit",
 		"dev": "cross-env NODE_ENV=development webpack serve --mode development",
-		"build": "cross-env NODE_ENV=production webpack --mode production",
-		"precommit": "npm noEmit",
-		"prepare": "husky install"
+		"build": "cross-env NODE_ENV=production webpack --mode production"
 	},
 	"repository": {
 		"type": "git",
