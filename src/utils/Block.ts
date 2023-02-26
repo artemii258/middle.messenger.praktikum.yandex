@@ -62,7 +62,8 @@ export default class Block<P extends Record<string, any> = any> {
 			} else if (this._element?.querySelector('input')) {
 				this._element?.querySelector('input')?.addEventListener(eventName, events[eventName]);
 			} else {
-				if (eventName === 'click' && events[eventName].name === 'onClick' && !eventBackgraund) {
+				console.log(events);
+				if (eventName === 'click' && !eventBackgraund) {
 					document
 						.querySelector('.popup__backgraund')
 						?.addEventListener(eventName, events[eventName]);

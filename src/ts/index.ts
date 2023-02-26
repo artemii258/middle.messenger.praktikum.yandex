@@ -2,6 +2,8 @@
 import { AuthentificationController } from '../Controllers/AuthController';
 import ActivationRoute from '../utils/Routes';
 
+import '../style/style.scss';
+
 window.addEventListener('DOMContentLoaded', async () => {
 	const route = new ActivationRoute();
 	if (/profile/g.test(location.pathname)) {
