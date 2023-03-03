@@ -1,9 +1,11 @@
 import Block from './Block';
 
 describe('test Block', () => {
+	const template = jest.fn(() => 'compile');
+
 	class Component extends Block<{}> {
 		render() {
-			return new DocumentFragment();
+			return this.compile(template, { ...this.props });
 		}
 	}
 	test('test Component', () => {
@@ -13,5 +15,10 @@ describe('test Block', () => {
 			test: 'success'
 		});
 		expect(renderSpy).toHaveBeenCalled();
+	});
+	test('test compile', () => {
+		const testComponent = new Component({});
+
+		expect(testComponent.render().textContent).toBe('compile');
 	});
 });

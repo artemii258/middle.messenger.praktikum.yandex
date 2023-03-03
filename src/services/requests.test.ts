@@ -32,6 +32,7 @@ function mockFetch(status: number, data?: { [key: string]: string }) {
 
 test('testing HTTPTransport', async () => {
 	const xhrAPI = new HTTPTransport();
+	window.XMLHttpRequest;
 	mockFetch(200, users);
 
 	const res = await xhrAPI.get('www.example.ru');
