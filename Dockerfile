@@ -1,6 +1,7 @@
-FROM ubuntu:22.04
-RUN apt update && apt install -y nodejs && apt install -y npm 
+FROM node
 WORKDIR /var/www
+COPY package.json /var/www/
+RUN npm install
 COPY . .
 EXPOSE 3000
 CMD node server.js 
