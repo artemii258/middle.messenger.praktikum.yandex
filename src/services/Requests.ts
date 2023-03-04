@@ -30,7 +30,7 @@ function queryStringify(data: string) {
 }
 
 export default class HTTPTransport {
-	baseURL: string;
+	private baseURL: string;
 
 	constructor() {
 		this.baseURL = 'https://ya-praktikum.tech/api/v2/';

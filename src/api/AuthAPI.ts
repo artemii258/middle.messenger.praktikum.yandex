@@ -31,7 +31,7 @@ export interface ISignupBody {
 }
 
 export interface IUser {
-	headers: Record<string, any>;
+	headers?: Record<string, any>;
 	data: IUserBody;
 }
 export interface IUserBody {
@@ -60,7 +60,7 @@ export class AuthAPI {
 		return this.request.post('auth/signup', data);
 	}
 
-	read(): Promise<IUser> {
+	read() {
 		return this.request.get('auth/user');
 	}
 

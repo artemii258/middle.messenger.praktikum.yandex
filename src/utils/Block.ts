@@ -1,5 +1,5 @@
 import EventBus from './Event-bus';
-import { nanoid } from 'nanoid';
+import { v4 as uuidv4 } from 'uuid';
 
 let eventBackgraund = false;
 
@@ -12,7 +12,7 @@ export default class Block<P extends Record<string, any> = any> {
 		FLOW_RENDER: 'flow:render'
 	} as const;
 
-	public id = nanoid(6);
+	public id = uuidv4();
 	protected props: P;
 	public children: Record<string, Block | Block[]>;
 	private eventBus: () => EventBus;
@@ -62,7 +62,7 @@ export default class Block<P extends Record<string, any> = any> {
 			} else if (this._element?.querySelector('input')) {
 				this._element?.querySelector('input')?.addEventListener(eventName, events[eventName]);
 			} else {
-				if (eventName === 'click' && events[eventName].name === 'onClick' && !eventBackgraund) {
+				if (eventName === 'click' && !eventBackgraund) {
 					document
 						.querySelector('.popup__backgraund')
 						?.addEventListener(eventName, events[eventName]);
